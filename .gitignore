@@ -1,12 +1,27 @@
+### Folders ###
+.gradle/
+.idea/
+.settings/
+bin/
+build/
+eclipse/
+lib/
+mcp/
+misc/
+out/
+ui/
+
+### Files ###
+*.blend
+*.blend1
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+*.classpath
+*.iml
+*.ipr
+*.iws
+*.mtl
+*.project
+*.setting
+*.txt
+*.xcf
+*.xml

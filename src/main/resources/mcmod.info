@@ -1,0 +1,16 @@
+[
+{
+  "modid": "GimmeNBT",
+  "name": "GimmeNBT",
+  "description": "Adds the NBT data of an ItemStack to its tooltip when either shift is pressed or F3 + H was toggled.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["iTitus"],
+  "credits": "The Mojang, Forge and FML guys",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
