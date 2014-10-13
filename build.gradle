@@ -17,13 +17,23 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.1"
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+version = config.minecraft_version + "-" + config.mod_version
 group= "io.github.iTitus" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "GimmeNBT"
 
 minecraft {
-    version = "1.7.10-10.13.0.1180"
-    assetDir = "eclipse/assets"
+    version = config.minecraft_version + "-" + config.forge_version
+    
+	replace "@VERSION@", project.version
+	
 }
 
 dependencies {

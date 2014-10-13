@@ -2,7 +2,7 @@
 {
   "modid": "GimmeNBT",
   "name": "GimmeNBT",
-  "description": "Adds the NBT data of an ItemStack to its tooltip when either shift is pressed or F3 + H was toggled.",
+  "description": "Adds useful information to the the tooltip and adds a /dump_inv command",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
