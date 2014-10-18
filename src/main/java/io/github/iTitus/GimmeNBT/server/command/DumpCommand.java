@@ -1,8 +1,8 @@
-package io.github.iTitus.GimmeNBT.command;
+package io.github.iTitus.GimmeNBT.server.command;
 
-import io.github.iTitus.GimmeNBT.network.MessageHandler;
-import io.github.iTitus.GimmeNBT.network.message.MessageDumpInv;
-import io.github.iTitus.GimmeNBT.util.Utils;
+import io.github.iTitus.GimmeNBT.common.network.MessageHandler;
+import io.github.iTitus.GimmeNBT.common.network.message.MessageDumpInv;
+import io.github.iTitus.GimmeNBT.common.util.Utils;
 
 import java.util.List;
 
@@ -20,8 +20,19 @@ import net.minecraft.world.World;
 public class DumpCommand extends CommandBase {
 
 	@Override
+	public List addTabCompletionOptions(ICommandSender sender, String[] args) {
+		return args.length != 1 ? null : getListOfStringsMatchingLastWord(args,
+				MinecraftServer.getServer().getAllUsernames());
+	}
+
+	@Override
 	public String getCommandName() {
 		return "dump_inv";
+	}
+
+	@Override
+	public String getCommandUsage(ICommandSender sender) {
+		return "commands.gimmenbt.dump_inv.usage";
 	}
 
 	@Override
@@ -30,8 +41,8 @@ public class DumpCommand extends CommandBase {
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender sender) {
-		return "commands.gimmenbt.dump_inv.usage";
+	public boolean isUsernameIndex(String[] args, int index) {
+		return args.length == 1 && index == 0;
 	}
 
 	@Override
@@ -58,17 +69,9 @@ public class DumpCommand extends CommandBase {
 							new MessageDumpInv(player.inventory, false, player
 									.getCommandSenderName()),
 							getCommandSenderAsPlayer(sender));
-				else {
-					if (Utils.makeInvDump(player.inventory, false,
-							player.getCommandSenderName()))
-						func_152373_a(sender, this,
-								"commands.gimmenbt.dump_inv.player.success",
-								player.getCommandSenderName());
-					else
-						func_152373_a(sender, this,
-								"commands.gimmenbt.dump_inv.player.failed",
-								player.getCommandSenderName());
-				}
+				else
+					sender.addChatMessage(Utils.makeInvDump(player.inventory,
+							false, player.getCommandSenderName()));
 
 			} else {
 
@@ -89,35 +92,17 @@ public class DumpCommand extends CommandBase {
 										String.format("%d,  %d, %d", x, y, z)),
 								getCommandSenderAsPlayer(sender));
 					else {
-						if (Utils.makeInvDump((IInventory) tile, true,
-								String.format("%d,  %d, %d", x, y, z)))
-							func_152373_a(sender, this,
-									"commands.gimmenbt.dump_inv.te.success",
-									String.format("%d,  %d, %d", x, y, z));
-						else
-							func_152373_a(sender, this,
-									"commands.gimmenbt.dump_inv.te.failed",
-									String.format("%d,  %d, %d", x, y, z));
+						sender.addChatMessage(Utils.makeInvDump(
+								(IInventory) tile, true,
+								String.format("%d, %d, %d", x, y, z)));
 					}
-				} else {
+				} else
 					func_152373_a(sender, this,
 							"commands.gimmenbt.dump_inv.te.noInv",
 							String.format("%d,  %d, %d", x, y, z));
-				}
 
 			}
 		}
-	}
-
-	@Override
-	public List addTabCompletionOptions(ICommandSender sender, String[] args) {
-		return args.length != 1 ? null : getListOfStringsMatchingLastWord(args,
-				MinecraftServer.getServer().getAllUsernames());
-	}
-
-	@Override
-	public boolean isUsernameIndex(String[] args, int index) {
-		return args.length == 1 && index == 0;
 	}
 
 }

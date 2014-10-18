@@ -1,11 +1,9 @@
-package io.github.iTitus.GimmeNBT.network.message;
+package io.github.iTitus.GimmeNBT.common.network.message;
 
-import io.github.iTitus.GimmeNBT.util.Utils;
+import io.github.iTitus.GimmeNBT.common.util.Utils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -15,12 +13,12 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 public class MessageDumpInv implements IMessage,
 		IMessageHandler<MessageDumpInv, IMessage> {
 
-	public String name, originName;
 	public boolean hasCustomName;
-	public int slotNumber, stackLimit;
-	public ItemStack[] items;
-	public boolean isBlockInv;
 	public String inventoryOwner;
+	public boolean isBlockInv;
+	public ItemStack[] items;
+	public String name, originName;
+	public int slotNumber, stackLimit;
 
 	public MessageDumpInv() {
 	}
@@ -56,6 +54,49 @@ public class MessageDumpInv implements IMessage,
 	}
 
 	@Override
+	public IMessage onMessage(MessageDumpInv msg, MessageContext ctx) {
+
+		// ChatComponentText text = null;
+		//
+		// if (Utils.makeInvDump(msg.name, msg.originName, msg.hasCustomName,
+		// msg.slotNumber, msg.stackLimit, msg.items, msg.isBlockInv,
+		// msg.inventoryOwner)) {
+		// if (msg.isBlockInv)
+		// text = new ChatComponentText(
+		// StatCollector.translateToLocalFormatted(
+		// "commands.gimmenbt.dump_inv.te.success",
+		// msg.inventoryOwner));
+		// else
+		// text = new ChatComponentText(
+		// StatCollector.translateToLocalFormatted(
+		// "commands.gimmenbt.dump_inv.player.success",
+		// msg.inventoryOwner));
+		// } else {
+		// if (msg.isBlockInv)
+		// text = new ChatComponentText(
+		// StatCollector.translateToLocalFormatted(
+		// "commands.gimmenbt.dump_inv.te.failed",
+		// msg.inventoryOwner));
+		// else
+		// text = new ChatComponentText(
+		// StatCollector.translateToLocalFormatted(
+		// "commands.gimmenbt.dump_inv.player.failed",
+		// msg.inventoryOwner));
+		// }
+
+		FMLClientHandler
+				.instance()
+				.getClientPlayerEntity()
+				.addChatComponentMessage(
+						Utils.makeInvDump(msg.name, msg.originName,
+								msg.hasCustomName, msg.slotNumber,
+								msg.stackLimit, msg.items, msg.isBlockInv,
+								msg.inventoryOwner));
+
+		return null;
+	}
+
+	@Override
 	public void toBytes(ByteBuf buf) {
 		ByteBufUtils.writeUTF8String(buf, name);
 		ByteBufUtils.writeUTF8String(buf, originName);
@@ -67,42 +108,6 @@ public class MessageDumpInv implements IMessage,
 		}
 		buf.writeBoolean(isBlockInv);
 		ByteBufUtils.writeUTF8String(buf, inventoryOwner);
-	}
-
-	@Override
-	public IMessage onMessage(MessageDumpInv msg, MessageContext ctx) {
-
-		ChatComponentText text = null;
-
-		if (Utils.makeInvDump(msg.name, msg.originName, msg.hasCustomName,
-				msg.slotNumber, msg.stackLimit, msg.items, msg.isBlockInv, msg.inventoryOwner)) {
-			if (msg.isBlockInv)
-				text = new ChatComponentText(
-						StatCollector.translateToLocalFormatted(
-								"commands.gimmenbt.dump_inv.te.success",
-								msg.inventoryOwner));
-			else
-				text = new ChatComponentText(
-						StatCollector.translateToLocalFormatted(
-								"commands.gimmenbt.dump_inv.player.success",
-								msg.inventoryOwner));
-		} else {
-			if (msg.isBlockInv)
-				text = new ChatComponentText(
-						StatCollector.translateToLocalFormatted(
-								"commands.gimmenbt.dump_inv.te.failed",
-								msg.inventoryOwner));
-			else
-				text = new ChatComponentText(
-						StatCollector.translateToLocalFormatted(
-								"commands.gimmenbt.dump_inv.player.failed",
-								msg.inventoryOwner));
-		}
-
-		FMLClientHandler.instance().getClientPlayerEntity()
-				.addChatComponentMessage(text);
-
-		return null;
 	}
 
 }

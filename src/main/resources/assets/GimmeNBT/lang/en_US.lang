@@ -1,14 +1,14 @@
 ### COMMANDS ###
 commands.gimmenbt.dump_inv.usage=/dump_inv <player> OR /dump_inv [x] [y] [z]
-commands.gimmenbt.dump_inv.player.success=[GimmeNBT] Successfully dumped the inventory of %s to disk
+commands.gimmenbt.dump_inv.player.success=[GimmeNBT] Successfully dumped the inventory of %s to disk: %s
 commands.gimmenbt.dump_inv.player.failed=[GimmeNBT] Unable to dump the inventory of %s to disk
-commands.gimmenbt.dump_inv.te.success=[GimmeNBT] Successfully dumped the inventory of the block at %s to disk
+commands.gimmenbt.dump_inv.te.success=[GimmeNBT] Successfully dumped the inventory of the block at %s to disk: %s
 commands.gimmenbt.dump_inv.te.noInv=[GimmeNBT] The block at %s does not have an inventory
 commands.gimmenbt.dump_inv.te.failed=[GimmeNBT] Unable to dump the inventory of the block at %s to disk
 
 ### TOOLTIPS ###
 tooltip.gimmenbt.id=ID: %s (%d)
 tooltip.gimmenbt.unlocalizedName=Unl. Name: %s
-tooltip.gimmenbt.damage=Damage: %d/%d
+tooltip.gimmenbt.damage=Damage: %d / %d
 tooltip.gimmenbt.maxStackSize=Max. StackSize: %d
 tooltip.gimmenbt.nbt=NBT:

@@ -1,6 +1,6 @@
-package io.github.iTitus.GimmeNBT.handler;
+package io.github.iTitus.GimmeNBT.client.handler;
 
-import io.github.iTitus.GimmeNBT.util.Utils;
+import io.github.iTitus.GimmeNBT.common.util.Utils;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
