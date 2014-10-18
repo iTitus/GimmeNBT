@@ -1,27 +1,13 @@
 ### Folders ###
 .gradle/
-.idea/
 .settings/
 bin/
 build/
 eclipse/
-lib/
-mcp/
-misc/
-out/
-ui/
 
 ### Files ###
-*.blend
-*.blend1
 *.class
 *.classpath
-*.iml
-*.ipr
-*.iws
-*.mtl
 *.project
 *.setting
 *.txt
-*.xcf
-*.xml

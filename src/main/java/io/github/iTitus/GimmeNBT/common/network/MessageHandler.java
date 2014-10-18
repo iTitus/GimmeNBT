@@ -6,7 +6,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 
-public class MessageHandler {
+public final class MessageHandler {
 
 	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE
 			.newSimpleChannel(LibMod.MOD_ID);
@@ -14,6 +14,9 @@ public class MessageHandler {
 	public static void init() {
 		INSTANCE.registerMessage(MessageDumpInv.class, MessageDumpInv.class, 0,
 				Side.CLIENT);
+	}
+
+	private MessageHandler() {
 	}
 
 }
