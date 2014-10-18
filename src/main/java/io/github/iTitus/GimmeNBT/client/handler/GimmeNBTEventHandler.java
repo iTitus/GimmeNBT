@@ -12,8 +12,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class GimmeNBTEventHandler {
 
-	private boolean makeInvDumpKeyPressed = false;
-
 	@SubscribeEvent
 	public void onItemToolTipAdded(ItemTooltipEvent event) {
 		if (event.showAdvancedItemTooltips

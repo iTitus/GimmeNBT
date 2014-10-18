@@ -55,35 +55,6 @@ public class MessageDumpInv implements IMessage,
 
 	@Override
 	public IMessage onMessage(MessageDumpInv msg, MessageContext ctx) {
-
-		// ChatComponentText text = null;
-		//
-		// if (Utils.makeInvDump(msg.name, msg.originName, msg.hasCustomName,
-		// msg.slotNumber, msg.stackLimit, msg.items, msg.isBlockInv,
-		// msg.inventoryOwner)) {
-		// if (msg.isBlockInv)
-		// text = new ChatComponentText(
-		// StatCollector.translateToLocalFormatted(
-		// "commands.gimmenbt.dump_inv.te.success",
-		// msg.inventoryOwner));
-		// else
-		// text = new ChatComponentText(
-		// StatCollector.translateToLocalFormatted(
-		// "commands.gimmenbt.dump_inv.player.success",
-		// msg.inventoryOwner));
-		// } else {
-		// if (msg.isBlockInv)
-		// text = new ChatComponentText(
-		// StatCollector.translateToLocalFormatted(
-		// "commands.gimmenbt.dump_inv.te.failed",
-		// msg.inventoryOwner));
-		// else
-		// text = new ChatComponentText(
-		// StatCollector.translateToLocalFormatted(
-		// "commands.gimmenbt.dump_inv.player.failed",
-		// msg.inventoryOwner));
-		// }
-
 		FMLClientHandler
 				.instance()
 				.getClientPlayerEntity()

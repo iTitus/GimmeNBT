@@ -11,20 +11,20 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
 public class CommonProxy {
 
-	public void preInit(FMLPreInitializationEvent event) {
-		MessageHandler.init();
-	}
-
 	public void init(FMLInitializationEvent event) {
-	}
-
-	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new DumpCommand());
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
 		FMLLog.info("%s v%s successfully loaded on side %s!", LibMod.MOD_ID,
 				LibMod.MOD_VERSION, event.getSide().toString());
+	}
+
+	public void preInit(FMLPreInitializationEvent event) {
+		MessageHandler.init();
+	}
+
+	public void serverStarting(FMLServerStartingEvent event) {
+		event.registerServerCommand(new DumpCommand());
 	}
 
 }
