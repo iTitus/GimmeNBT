@@ -1,5 +1,17 @@
 language: java
 jdk:
+  - oraclejdk7
+  - openjdk7
   - openjdk6
-install: gradle setupCIWorkspace -S
-script: gradle build -S
+
+before_install: chmod +x gradlew
+install: ./gradlew setupCIWorkspace -S
+script: ./gradlew build -S
+
+env:
+  global:
+    TERM=dumb
+
+cache:
+    directories:
+    - $HOME/.gradle
