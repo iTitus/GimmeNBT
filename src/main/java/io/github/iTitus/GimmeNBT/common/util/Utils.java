@@ -74,8 +74,11 @@ public final class Utils {
 		int types = 0;
 
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
-			stack.getItem().getSubItems(stack.getItem(),
-					CreativeTabs.tabAllSearch, items);
+			stack.getItem().getSubItems(
+					stack.getItem(),
+					(stack.getItem().getCreativeTab() != null ? stack.getItem()
+							.getCreativeTab() : CreativeTabs.tabAllSearch),
+					items);
 			for (ItemStack possibleStack : items) {
 				types = Math.max(types, possibleStack.getMaxDamage());
 			}
