@@ -8,6 +8,9 @@ eclipse/
 ### Files ###
 *.class
 *.classpath
+*.iml
+*.ipr
+*.iws
 *.project
 *.setting
 *.txt

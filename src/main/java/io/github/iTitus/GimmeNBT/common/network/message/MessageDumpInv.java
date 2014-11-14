@@ -25,17 +25,26 @@ public class MessageDumpInv implements IMessage,
 
 	public MessageDumpInv(IInventory inv, boolean isBlockInv,
 			String inventoryOwner) {
-		name = inv.getInventoryName();
-		originName = inv.getClass().getName();
-		hasCustomName = inv.hasCustomInventoryName();
-		slotNumber = inv.getSizeInventory();
-		stackLimit = inv.getInventoryStackLimit();
-		items = new ItemStack[slotNumber];
-		for (int i = 0; i < slotNumber; i++) {
-			items[i] = inv.getStackInSlot(i);
+		if (inv != null) {
+			name = inv.getInventoryName();
+			originName = inv.getClass().getName();
+			hasCustomName = inv.hasCustomInventoryName();
+			slotNumber = inv.getSizeInventory();
+			stackLimit = inv.getInventoryStackLimit();
+			items = new ItemStack[slotNumber];
+			for (int i = 0; i < slotNumber; i++) {
+				items[i] = inv.getStackInSlot(i);
+			}
+		} else {
+			name = "null";
+			originName = "null";
+			hasCustomName = true;
+			slotNumber = 0;
+			stackLimit = 0;
+			items = new ItemStack[0];
 		}
 		this.isBlockInv = isBlockInv;
-		this.inventoryOwner = inventoryOwner;
+		this.inventoryOwner = inventoryOwner != null ? inventoryOwner : "";
 	}
 
 	@Override
@@ -74,8 +83,8 @@ public class MessageDumpInv implements IMessage,
 		buf.writeBoolean(hasCustomName);
 		buf.writeInt(slotNumber);
 		buf.writeInt(stackLimit);
-		for (int i = 0; i < items.length; i++) {
-			ByteBufUtils.writeItemStack(buf, items[i]);
+		for (ItemStack item : items) {
+			ByteBufUtils.writeItemStack(buf, item);
 		}
 		buf.writeBoolean(isBlockInv);
 		ByteBufUtils.writeUTF8String(buf, inventoryOwner);

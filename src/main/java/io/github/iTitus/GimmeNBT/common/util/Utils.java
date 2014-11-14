@@ -43,9 +43,9 @@ public final class Utils {
 		String fileName = String.format("inv_dump_%s_%s_%s_%s", name,
 				(isBlockInv ? "@" : "") + inventoryOwner, FMLCommonHandler
 						.instance().getEffectiveSide(),
-				dateFormat.format(new Date()).toString());
-		int i = 1;
+				dateFormat.format(new Date()));
 
+		int i = 1;
 		while (true) {
 			File saveFile = new File(getSaveFolder(), fileName
 					+ (i == 1 ? "" : "_" + i) + ".txt");
@@ -107,7 +107,7 @@ public final class Utils {
 
 	private static File getSaveFolder() {
 
-		File saveFolder = null;
+		File saveFolder;
 
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
 			saveFolder = new File(Minecraft.getMinecraft().mcDataDir,
@@ -124,21 +124,18 @@ public final class Utils {
 	public static IChatComponent makeInvDump(IInventory inv,
 			boolean isBlockInv, String inventoryOwner) {
 
-		ItemStack[] items = null;
-
 		if (inv == null)
-			return makeInvDump("", "", false, 0, 0, items, isBlockInv,
-					inventoryOwner);
-		else {
-			items = new ItemStack[inv.getSizeInventory()];
-			for (int i = 0; i < items.length; i++) {
-				items[i] = inv.getStackInSlot(i);
-			}
-			return makeInvDump(inv.getInventoryName(),
-					inv.getClass().getName(), inv.hasCustomInventoryName(),
-					inv.getSizeInventory(), inv.getInventoryStackLimit(),
-					items, isBlockInv, inventoryOwner);
+			return makeInvDump("null", "null", true, 0, 0, new ItemStack[0],
+					isBlockInv, inventoryOwner != null ? inventoryOwner
+							: "null");
+		ItemStack[] items = new ItemStack[inv.getSizeInventory()];
+		for (int i = 0; i < items.length; i++) {
+			items[i] = inv.getStackInSlot(i);
 		}
+		return makeInvDump(inv.getInventoryName(), inv.getClass().getName(),
+				inv.hasCustomInventoryName(), inv.getSizeInventory(),
+				inv.getInventoryStackLimit(), items, isBlockInv, inventoryOwner);
+
 	}
 
 	public static IChatComponent makeInvDump(String name, String originName,
@@ -256,18 +253,15 @@ public final class Utils {
 				return new ChatComponentTranslation(
 						"commands.gimmenbt.dump_inv.te.success",
 						inventoryOwner, fileLink);
-			else
-				return new ChatComponentTranslation(
-						"commands.gimmenbt.dump_inv.player.success",
-						inventoryOwner, fileLink);
+			return new ChatComponentTranslation(
+					"commands.gimmenbt.dump_inv.player.success",
+					inventoryOwner, fileLink);
 		} else {
 			if (isBlockInv)
 				return new ChatComponentTranslation(
 						"commands.gimmenbt.dump_inv.te.failed", inventoryOwner);
-			else
-				return new ChatComponentTranslation(
-						"commands.gimmenbt.dump_inv.player.failed",
-						inventoryOwner);
+			return new ChatComponentTranslation(
+					"commands.gimmenbt.dump_inv.player.failed", inventoryOwner);
 		}
 
 	}
