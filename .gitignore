@@ -4,6 +4,8 @@
 bin/
 build/
 eclipse/
+out/
+run/
 
 ### Files ###
 *.class
