@@ -8,15 +8,13 @@ import cpw.mods.fml.relauncher.Side;
 
 public final class MessageHandler {
 
-	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE
-			.newSimpleChannel(LibMod.MOD_ID);
+    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(LibMod.MOD_ID);
 
-	public static void init() {
-		INSTANCE.registerMessage(MessageDumpInv.class, MessageDumpInv.class, 0,
-				Side.CLIENT);
-	}
+    public static void init() {
+        INSTANCE.registerMessage(MessageDumpInv.class, MessageDumpInv.class, 0, Side.CLIENT);
+    }
 
-	private MessageHandler() {
-	}
+    private MessageHandler() {
+    }
 
 }

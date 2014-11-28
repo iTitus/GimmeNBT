@@ -19,90 +19,79 @@ import net.minecraft.world.World;
 
 public class DumpCommand extends CommandBase {
 
-	@Override
-	public List addTabCompletionOptions(ICommandSender sender, String[] args) {
-		return args.length != 1 ? null : getListOfStringsMatchingLastWord(args,
-				MinecraftServer.getServer().getAllUsernames());
-	}
+    @Override
+    public List addTabCompletionOptions(ICommandSender sender, String[] args) {
+        return args.length != 1 ? null : getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames());
+    }
 
-	@Override
-	public String getCommandName() {
-		return "dump_inv";
-	}
+    @Override
+    public String getCommandName() {
+        return "dump_inv";
+    }
 
-	@Override
-	public String getCommandUsage(ICommandSender sender) {
-		return "commands.gimmenbt.dump_inv.usage";
-	}
+    @Override
+    public String getCommandUsage(ICommandSender sender) {
+        return "commands.gimmenbt.dump_inv.usage";
+    }
 
-	@Override
-	public int getRequiredPermissionLevel() {
-		return 2;
-	}
+    @Override
+    public int getRequiredPermissionLevel() {
+        return 2;
+    }
 
-	@Override
-	public boolean isUsernameIndex(String[] args, int index) {
-		return args.length == 1 && index == 0;
-	}
+    @Override
+    public boolean isUsernameIndex(String[] args, int index) {
+        return args.length == 1 && index == 0;
+    }
 
-	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+    @Override
+    public void processCommand(ICommandSender sender, String[] args) {
 
-		if (args.length > 3 || args.length == 2)
-			throw new WrongUsageException("commands.gimmenbt.dump_inv.usage");
-		else {
+        if (args.length > 3 || args.length == 2) {
+            throw new WrongUsageException("commands.gimmenbt.dump_inv.usage");
+        } else {
 
-			if (args.length == 0 || args.length == 1) {
+            if (args.length == 0 || args.length == 1) {
 
-				EntityPlayerMP player;
+                EntityPlayerMP player;
 
-				if (args.length == 0)
-					player = getCommandSenderAsPlayer(sender);
-				else
-					player = getPlayer(sender, args[0]);
+                if (args.length == 0) {
+                    player = getCommandSenderAsPlayer(sender);
+                } else {
+                    player = getPlayer(sender, args[0]);
+                }
 
-				if (player == null)
-					throw new PlayerNotFoundException();
+                if (player == null) {
+                    throw new PlayerNotFoundException();
+                }
 
-				if (sender instanceof EntityPlayerMP)
-					MessageHandler.INSTANCE.sendTo(
-							new MessageDumpInv(player.inventory, false, player
-									.getCommandSenderName()),
-							getCommandSenderAsPlayer(sender));
-				else
-					sender.addChatMessage(Utils.makeInvDump(player.inventory,
-							false, player.getCommandSenderName()));
+                if (sender instanceof EntityPlayerMP) {
+                    MessageHandler.INSTANCE.sendTo(new MessageDumpInv(player.inventory, false, player.getCommandSenderName()), getCommandSenderAsPlayer(sender));
+                } else {
+                    sender.addChatMessage(Utils.makeInvDump(player.inventory, false, player.getCommandSenderName()));
+                }
 
-			} else {
+            } else {
 
-				int x = MathHelper.floor_double(func_110666_a(sender,
-						sender.getPlayerCoordinates().posX, args[0]));
-				int y = MathHelper.floor_double(func_110666_a(sender,
-						sender.getPlayerCoordinates().posY, args[1]));
-				int z = MathHelper.floor_double(func_110666_a(sender,
-						sender.getPlayerCoordinates().posZ, args[2]));
+                int x = MathHelper.floor_double(func_110666_a(sender, sender.getPlayerCoordinates().posX, args[0]));
+                int y = MathHelper.floor_double(func_110666_a(sender, sender.getPlayerCoordinates().posY, args[1]));
+                int z = MathHelper.floor_double(func_110666_a(sender, sender.getPlayerCoordinates().posZ, args[2]));
 
-				World w = sender.getEntityWorld();
-				TileEntity tile = w.getTileEntity(x, y, z);
+                World w = sender.getEntityWorld();
+                TileEntity tile = w.getTileEntity(x, y, z);
 
-				if (tile != null && tile instanceof IInventory) {
-					if (sender instanceof EntityPlayerMP)
-						MessageHandler.INSTANCE.sendTo(
-								new MessageDumpInv((IInventory) tile, true,
-										String.format("%d,  %d, %d", x, y, z)),
-								getCommandSenderAsPlayer(sender));
-					else {
-						sender.addChatMessage(Utils.makeInvDump(
-								(IInventory) tile, true,
-								String.format("%d, %d, %d", x, y, z)));
-					}
-				} else
-					func_152373_a(sender, this,
-							"commands.gimmenbt.dump_inv.te.noInv",
-							String.format("%d,  %d, %d", x, y, z));
+                if (tile != null && tile instanceof IInventory) {
+                    if (sender instanceof EntityPlayerMP) {
+                        MessageHandler.INSTANCE.sendTo(new MessageDumpInv((IInventory) tile, true, String.format("%d,  %d, %d", x, y, z)), getCommandSenderAsPlayer(sender));
+                    } else {
+                        sender.addChatMessage(Utils.makeInvDump((IInventory) tile, true, String.format("%d, %d, %d", x, y, z)));
+                    }
+                } else {
+                    func_152373_a(sender, this, "commands.gimmenbt.dump_inv.te.noInv", String.format("%d,  %d, %d", x, y, z));
+                }
 
-			}
-		}
-	}
+            }
+        }
+    }
 
 }
